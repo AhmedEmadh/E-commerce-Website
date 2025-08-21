@@ -980,14 +980,14 @@ section,
 }
 
 /*--------------------------------------------------------------
-# Services Section
+# Categories Section
 --------------------------------------------------------------*/
-.services .service-item {
+.categories .category-item {
   position: relative;
   padding-top: 20px;
 }
 
-.services .service-item .icon {
+.categories .category-item .icon {
   background-color: color-mix(in srgb, var(--accent-color), transparent 90%);
   width: 72px;
   height: 72px;
@@ -1000,36 +1000,36 @@ section,
   transition: ease-in-out 0.3s;
 }
 
-.services .service-item .icon i {
+.categories .category-item .icon i {
   color: var(--accent-color);
   font-size: 32px;
   z-index: 2;
   position: relative;
 }
 
-.services .service-item .title {
+.categories .category-item .title {
   font-weight: 700;
   margin-bottom: 5px;
   font-size: 18px;
 }
 
-.services .service-item .title a {
+.categories .category-item .title a {
   color: var(--heading-color);
 }
 
-.services .service-item .title a:hover {
+.categories .category-item .title a:hover {
   color: var(--accent-color);
 }
 
-.services .service-item .description {
+.categories .category-item .description {
   font-size: 14px;
 }
 
-.services .service-item:hover .icon {
+.categories .category-item:hover .icon {
   background-color: var(--accent-color);
 }
 
-.services .service-item:hover .icon i {
+.categories .category-item:hover .icon i {
   color: var(--contrast-color);
 }
 
@@ -1775,16 +1775,16 @@ section,
 }
 
 /*--------------------------------------------------------------
-# Service Details Section
+# Category Details Section
 --------------------------------------------------------------*/
-.service-details .services-list {
+.category-details .categories-list {
   background-color: var(--surface-color);
   padding: 10px 30px;
   border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
   margin-bottom: 20px;
 }
 
-.service-details .services-list a {
+.category-details .categories-list a {
   display: block;
   line-height: 1;
   padding: 8px 0 8px 15px;
@@ -1794,47 +1794,47 @@ section,
   transition: 0.3s;
 }
 
-.service-details .services-list a.active {
+.category-details .categories-list a.active {
   color: var(--heading-color);
   font-weight: 700;
   border-color: var(--accent-color);
 }
 
-.service-details .services-list a:hover {
+.category-details .categories-list a:hover {
   border-color: var(--accent-color);
 }
 
-.service-details .services-img {
+.category-details .categories-img {
   margin-bottom: 20px;
 }
 
-.service-details h3 {
+.category-details h3 {
   font-size: 26px;
   font-weight: 700;
 }
 
-.service-details h4 {
+.category-details h4 {
   font-size: 20px;
   font-weight: 700;
 }
 
-.service-details p {
+.category-details p {
   font-size: 15px;
 }
 
-.service-details ul {
+.category-details ul {
   list-style: none;
   padding: 0;
   font-size: 15px;
 }
 
-.service-details ul li {
+.category-details ul li {
   padding: 5px 0;
   display: flex;
   align-items: center;
 }
 
-.service-details ul i {
+.category-details ul i {
   font-size: 20px;
   margin-right: 8px;
   color: var(--accent-color);

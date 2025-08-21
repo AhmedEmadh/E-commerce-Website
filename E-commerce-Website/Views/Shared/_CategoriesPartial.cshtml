@@ -4,7 +4,7 @@
 *@
 
 
-<section id="services" class="services section mt-5">
+<section id="categories" class="categories section mt-5">
 
     <!-- Section Title -->
     <div class="container section-title" data-aos="fade-up">
@@ -18,7 +18,7 @@
             @foreach (var item in Model)
             {
                 <div class="col-xl-4 col-lg-6" data-aos="fade-up" data-aos-delay="100">
-                    <div class="service-item d-flex">
+                    <div class="category-item d-flex">
                         <div class="icon flex-shrink-0"><i class="fa-solid @item.Photo"></i></div>
                         <div>
                             <h4 class="title"><a href="/Home/Products/@item.Id" class="stretched-link">@item.Name</a></h4>
@@ -26,10 +26,10 @@
                         </div>
                     </div>
                 </div>
-                <!-- End Service Item -->
+                <!-- End Category Item -->
             }
         </div>
 
     </div>
 
-</section><!-- /Services Section -->
+</section><!-- /Categories Section -->
