@@ -40,9 +40,7 @@ public partial class ECommerceWebsiteContext : DbContext
 
         modelBuilder.Entity<Product>(entity =>
         {
-            entity.HasOne(d => d.Category).WithMany(p => p.Products)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Products_Categories");
+            entity.HasOne(d => d.Category).WithMany(p => p.Products).HasConstraintName("FK_Products_Categories");
         });
 
         modelBuilder.Entity<Review>(entity =>

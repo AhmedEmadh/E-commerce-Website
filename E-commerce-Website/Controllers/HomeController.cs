@@ -15,7 +15,9 @@ namespace E_commerce_Website.Controllers
         ECommerceWebsiteContext db = new ECommerceWebsiteContext();
         public IActionResult Index()
         {
-            return View(db.Categories.ToList());
+            ViewBag.Categories = db.Categories.ToList();
+            ViewBag.Products = db.Products.ToList();
+            return View();
         }
 
         public IActionResult Privacy()
