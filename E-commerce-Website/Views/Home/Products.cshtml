@@ -1,0 +1,6 @@
+﻿@model List<Product>
+@{
+    ViewData["CurrentPage"] = "Products";   
+}
+
+@await Html.PartialAsync("_ProductsWithoutFilterPartial", Model)
