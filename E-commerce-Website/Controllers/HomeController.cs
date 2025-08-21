@@ -12,15 +12,21 @@ namespace E_commerce_Website.Controllers
         {
             _logger = logger;
         }
-
+        ECommerceWebsiteContext db = new ECommerceWebsiteContext();
         public IActionResult Index()
         {
-            return View();
+            return View(db.Categories.ToList());
         }
 
         public IActionResult Privacy()
         {
             return View();
+        }
+        public IActionResult Categories()
+        {
+            
+            var categories = db.Categories.ToList();
+            return View(categories);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
