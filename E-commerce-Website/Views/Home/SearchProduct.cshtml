@@ -1,0 +1,7 @@
+﻿@model List<Product>
+@{
+    ViewData["Title"] = "SearchProduct";
+}
+@await Html.PartialAsync("_SpacePartial")
+@await Html.PartialAsync("_SearchBarPartial")
+@await Html.PartialAsync("_ProductsWithoutFilterPartial", Model)

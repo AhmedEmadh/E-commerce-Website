@@ -31,6 +31,7 @@ namespace E_commerce_Website.Controllers
             var categories = db.Categories.ToList();
             return View(categories);
         }
+        [HttpGet]
         public IActionResult Products(int? id)
         {
             List<Product> products;
@@ -48,6 +49,23 @@ namespace E_commerce_Website.Controllers
                 return NotFound();
             }
             return View(products);
+        }
+        [HttpGet]
+        public IActionResult SearchProduct(string name)
+        {
+            var products = db.Products
+                             .Where(x => x.Name.Contains(name)).Include(product => product.Category)
+                             .ToList();
+
+            return View(products);
+        }
+        [HttpPost]
+        public IActionResult SendReview(ReviewVM reviewVM)
+        {
+
+            db.Reviews.Add(new Review { Name = reviewVM.name, Email = reviewVM.email, Subject = reviewVM.subject, Description = reviewVM.message });
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

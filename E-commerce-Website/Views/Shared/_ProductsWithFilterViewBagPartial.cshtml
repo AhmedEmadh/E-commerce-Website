@@ -18,14 +18,14 @@
                 <li data-filter="*" class="filter-active">All</li>
                 @foreach (var item in ViewBag.Categories)
                 {
-                    <li data-filter=".filter-@item.Photo">@item.Name</li>
+                    <li data-filter="._@item.Id">@item.Name</li>
                 }
             </ul><!-- End Products Filters -->
 
             <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
                 @foreach (var item in ViewBag.Products)
                 {
-                    <div class="col-lg-4 col-md-6 products-item isotope-item filter-app filter-@item.Category.Photo">
+                    <div class="col-lg-4 col-md-6 products-item isotope-item filter-app _@item.Category.Id">
                         <div class="products-content h-100">
                             <a href="@item.Photo" data-gallery="products-gallery-app" class="glightbox"><img src="@item.Photo" class="img-fluid"></a>
                             <div class="products-info">

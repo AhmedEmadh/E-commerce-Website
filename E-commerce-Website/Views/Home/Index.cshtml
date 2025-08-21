@@ -3,5 +3,7 @@
     ViewData["CurrentPage"] = "Home";
 }
 
+@await Html.PartialAsync("_SearchBarPartial")
 @await Html.PartialAsync("_CategoriesPartial", (List<Category>)ViewBag.Categories)
 @await Html.PartialAsync("_ProductsWithFilterViewBagPartial")
+@await Html.PartialAsync("_ReviewPartial")

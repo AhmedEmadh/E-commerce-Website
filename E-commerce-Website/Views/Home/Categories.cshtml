@@ -4,5 +4,5 @@
 }
 @model List<Category>
 
-
+@await Html.PartialAsync("_SpacePartial")
 @await Html.PartialAsync("_CategoriesPartial", Model)

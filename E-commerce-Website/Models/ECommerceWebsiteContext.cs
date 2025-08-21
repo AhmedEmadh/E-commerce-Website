@@ -43,11 +43,6 @@ public partial class ECommerceWebsiteContext : DbContext
             entity.HasOne(d => d.Category).WithMany(p => p.Products).HasConstraintName("FK_Products_Categories");
         });
 
-        modelBuilder.Entity<Review>(entity =>
-        {
-            entity.Property(e => e.Id).ValueGeneratedNever();
-        });
-
         OnModelCreatingPartial(modelBuilder);
     }
 
