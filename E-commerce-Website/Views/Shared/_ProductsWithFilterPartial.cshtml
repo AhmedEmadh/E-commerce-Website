@@ -1,4 +1,4 @@
-﻿
+﻿@model IndexDM
 @*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -16,14 +16,14 @@
 
             <ul class="products-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
                 <li data-filter="*" class="filter-active">All</li>
-                @foreach (var item in ViewBag.Categories)
+                @foreach (var item in Model.Categories)
                 {
                     <li data-filter="._@item.Id">@item.Name</li>
                 }
             </ul><!-- End Products Filters -->
 
             <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
-                @foreach (var item in ViewBag.Products)
+                @foreach (var item in Model.Products)
                 {
                     <div class="col-lg-4 col-md-6 products-item isotope-item filter-app _@item.Category.Id">
                         <div class="products-content h-100">

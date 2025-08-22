@@ -1,9 +1,11 @@
-﻿@{
+﻿@model IndexDM
+@{
     ViewData["Title"] = "Home Page";
     ViewData["CurrentPage"] = "Home";
 }
 
 @await Html.PartialAsync("_SearchBarPartial")
-@await Html.PartialAsync("_CategoriesPartial", (List<Category>)ViewBag.Categories)
-@await Html.PartialAsync("_ProductsWithFilterViewBagPartial")
+@await Html.PartialAsync("_PeopleReviewsPartial")
+@await Html.PartialAsync("_CategoriesPartial", Model.Categories)
+@await Html.PartialAsync("_ProductsWithFilterPartial",Model)
 @await Html.PartialAsync("_ReviewPartial")
