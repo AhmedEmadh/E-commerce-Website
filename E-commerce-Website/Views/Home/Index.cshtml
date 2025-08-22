@@ -7,5 +7,6 @@
 @await Html.PartialAsync("_SearchBarPartial")
 @await Html.PartialAsync("_PeopleReviewsPartial")
 @await Html.PartialAsync("_CategoriesPartial", Model.Categories)
+@await Html.PartialAsync("_LatestProductsPartial",Model.RecentProducts.ToList())
 @await Html.PartialAsync("_ProductsWithFilterPartial",Model)
 @await Html.PartialAsync("_ReviewPartial")

@@ -10,6 +10,7 @@
         }
         public List<Category> Categories { get; set; } = new List<Category>();
         public List<Product> Products { get; set; } = new List<Product>();
+        public List<Product> RecentProducts { get; set; } = new List<Product>();
         public List<Review> Reviews { get; set; } = new List<Review>();
         public Cart? Cart { get; set; }
         public ReviewVM ReviewVM { get; set; } = new ReviewVM();

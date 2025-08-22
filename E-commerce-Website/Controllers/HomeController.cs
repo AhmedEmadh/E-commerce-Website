@@ -19,6 +19,7 @@ namespace E_commerce_Website.Controllers
             IndexDM indexDM = new IndexDM();
             indexDM.Categories = db.Categories.ToList();
             indexDM.Products = db.Products.ToList();
+            indexDM.RecentProducts = db.Products.OrderByDescending(p => p.DateAdded).Take(3).ToList();
             indexDM.Reviews = db.Reviews.ToList();
             return View(indexDM);
         }
@@ -76,6 +77,23 @@ namespace E_commerce_Website.Controllers
             db.Reviews.Add(new Review { Name = reviewVM.name, Email = reviewVM.email, Subject = reviewVM.subject, Description = reviewVM.message });
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+        public IActionResult CurrentProduct(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            Product? product = db.Products.Include(p => p.Category).Include(product => product.ProductImages).FirstOrDefault(p => p.Id == id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            return View(product);
+        }
+        public IActionResult Cart()
+        {
+            return View();
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

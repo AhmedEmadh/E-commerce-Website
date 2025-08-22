@@ -1,0 +1,31 @@
+﻿@model List<Product>
+<section id="pricing" class="pricing section">
+
+    <!-- Section Title -->
+    <div class="container section-title aos-init aos-animate" data-aos="fade-up">
+        <h2>Latest Products</h2>
+        <p>Products Added Recently to the website</p>
+    </div><!-- End Section Title -->
+
+    <div class="container">
+
+        <div class="row gy-4">
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-4 aos-init aos-animate text-center" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="pricing-item">
+                        <h3>@item.Name</h3>
+                        <h4>@item.Price<span>LE</span></h4>
+                        <img src="@item.Photo" style="max-width: 350px;max-height: 350px;" />
+                        <br />
+                        <br />
+                        <a class="buy-btn" href="/Home/CurrentProduct/@item.Id">Details</a>
+                    </div>
+                </div><!-- End Pricing Item -->    
+            }
+            
+        </div>
+
+    </div>
+
+</section>

@@ -22,10 +22,16 @@ public partial class Product
 
     public string? Photo { get; set; }
 
+    [Column(TypeName = "datetime")]
+    public DateTime? DateAdded { get; set; }
+
     [InverseProperty("Product")]
     public virtual ICollection<Cart> Carts { get; set; } = new List<Cart>();
 
     [ForeignKey("CategoryId")]
     [InverseProperty("Products")]
     public virtual Category? Category { get; set; }
+
+    [InverseProperty("Product")]
+    public virtual ICollection<ProductImage> ProductImages { get; set; } = new List<ProductImage>();
 }

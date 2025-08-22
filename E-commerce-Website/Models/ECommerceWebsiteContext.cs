@@ -21,6 +21,8 @@ public partial class ECommerceWebsiteContext : DbContext
 
     public virtual DbSet<Product> Products { get; set; }
 
+    public virtual DbSet<ProductImage> ProductImages { get; set; }
+
     public virtual DbSet<Review> Reviews { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -41,6 +43,11 @@ public partial class ECommerceWebsiteContext : DbContext
         modelBuilder.Entity<Product>(entity =>
         {
             entity.HasOne(d => d.Category).WithMany(p => p.Products).HasConstraintName("FK_Products_Categories");
+        });
+
+        modelBuilder.Entity<ProductImage>(entity =>
+        {
+            entity.HasOne(d => d.Product).WithMany(p => p.ProductImages).HasConstraintName("FK_ProductImages_Products");
         });
 
         OnModelCreatingPartial(modelBuilder);

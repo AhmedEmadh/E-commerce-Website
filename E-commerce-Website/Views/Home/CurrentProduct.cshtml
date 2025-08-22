@@ -1,0 +1,7 @@
+﻿@model Product
+@{
+    ViewData["Title"] = "CurrentProduct";
+}
+
+@await Html.PartialAsync("_SpacePartial")
+@await Html.PartialAsync("_ProductDetailsPartial", Model)
