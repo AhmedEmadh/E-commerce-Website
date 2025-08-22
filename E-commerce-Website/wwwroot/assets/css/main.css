@@ -1847,6 +1847,7 @@ section,
   /* Add your styles here */
 }
 
-.myForm {
-
+.my-fixed-bar {
+    background-color: rgba(77, 44, 169, 0.9);
+    box-shadow: 0px 0 18px rgba(0, 0, 0, 0.1);
 }

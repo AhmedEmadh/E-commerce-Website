@@ -2,7 +2,8 @@
 @*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
-<header id="header" class="header d-flex align-items-center fixed-top">
+
+<header id="header" class="header d-flex align-items-center fixed-top @((string?)ViewData["CurrentPage"] != "Home" ? "my-fixed-bar" : "")">
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
         <a href="/" class="logo d-flex align-items-center me-auto">
@@ -22,7 +23,16 @@
                 {
                     <li><a href="/">Home</a></li>
                 }
-                <li><a href="/Home/Products">Products</a></li>
+                @if ((string?)ViewData["CurrentPage"] == "Products")
+                {
+                    <li><a href="/Home/products" class="active">Products</a></li>
+
+                }
+                else
+                {
+                    <li><a href="/Home/products">Products</a></li>
+                }
+
                 @if ((string?)ViewData["CurrentPage"] == "Categories")
                 {
                     <li><a href="/Home/Categories" class="active">Categories</a></li>
@@ -58,28 +68,7 @@
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
 
-        <a class="btn-getstarted" href="#categories">Get Started</a>
+        <a class="btn-getstarted" href="#about">Get Started</a>
 
     </div>
 </header>
-<!-- Hero Section -->
-<section id="hero" class="hero section accent-background">
-
-    <div class="container">
-        <div class="row gy-4">
-            <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
-                <h1>My E-commerce Website</h1>
-                <p>Enjoy Shopping!</p>
-                <div class="d-flex">
-                    <a href="#categories" class="btn-get-started">Get Started</a>
-                </div>
-            </div>
-            <div class="col-lg-6 order-1 order-lg-2 hero-img">
-                <img src="~/assets/img/hero-img.png" class="img-fluid animated" alt="">
-            </div>
-        </div>
-    </div>
-
-</section>
-
-<!-- /Hero Section -->

@@ -55,11 +55,19 @@ namespace E_commerce_Website.Controllers
         [HttpGet]
         public IActionResult SearchProduct(string name)
         {
-            var products = db.Products
-                             .Where(x => x.Name.Contains(name)).Include(product => product.Category)
-                             .ToList();
+            List<Product> products = new List<Product>();
+            if (!string.IsNullOrEmpty(name))
+            {
+                products = db.Products
+                                .Where(x => x.Name.Contains(name)).Include(product => product.Category)
+                                .ToList();
+            }
+            else
+            {
+                products = db.Products.Include(product => product.Category).ToList();
+            }
 
-            return View(products);
+                return View(products);
         }
         [HttpPost]
         public IActionResult SendReview(ReviewVM reviewVM)

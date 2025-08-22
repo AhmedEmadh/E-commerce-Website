@@ -41,12 +41,12 @@
 
     @if ((string?)ViewData["CurrentPage"] != "Home")
     {
-		@await Html.PartialAsync("_HeaderWithoutHeroSectionPartial")
+		@await Html.PartialAsync("_NavBarPartial")
 
     }
     else
     {
-		@await Html.PartialAsync("_HeaderWithHeroSectionPartial")
+		@await Html.PartialAsync("_NavBarWithHeroSectionPartial")
     }
 
        
