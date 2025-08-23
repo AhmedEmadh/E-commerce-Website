@@ -14,10 +14,9 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 //builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
 //    .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
 
 // Dependency Indjection for DbContext
-//builder.Services.AddDbContext<ECommerceWebsiteContext>(options =>
-//    options.UseSqlServer(connectionString));
 builder.Services.AddScoped<ECommerceWebsiteContext>();
 var app = builder.Build();
 
@@ -38,6 +37,7 @@ else
 app.UseHttpsRedirection();
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();
@@ -47,7 +47,7 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
 
-//app.MapRazorPages()
-//   .WithStaticAssets();
+app.MapRazorPages()
+   .WithStaticAssets();
 
 app.Run();
