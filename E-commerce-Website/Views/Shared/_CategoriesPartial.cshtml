@@ -28,6 +28,10 @@
                 </div>
                 <!-- End Category Item -->
             }
+            @if((bool?)ViewBag.isAdmin == true )
+            {
+                <a class="btn btn-primary col-12" asp-controller="Categories" asp-action="Index">Control Categories</a>
+            }
         </div>
 
     </div>

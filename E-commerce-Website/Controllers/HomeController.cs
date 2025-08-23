@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using E_commerce_Website.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Razor.Language;
 using Microsoft.EntityFrameworkCore;
 
 namespace E_commerce_Website.Controllers
@@ -30,7 +31,7 @@ namespace E_commerce_Website.Controllers
         }
         public IActionResult Categories()
         {
-
+            ViewBag.isAdmin = true;
             var categories = db.Categories.ToList();
             return View(categories);
         }
