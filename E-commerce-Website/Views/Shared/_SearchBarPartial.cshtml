@@ -3,11 +3,15 @@
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
 <form method="get" asp-controller="Home" asp-action="SearchProduct">
-<div class="container mt-5 mb-5">
-    <div class="row">
-            <input type="text" name="name" class="form-text col-sm-8 m-1" placeholder="Search" />
-        <button type="submit" class="btn btn-primary col-sm-2 m-1" >Search</button>
-    </div>
+<div class="container mt-3 mb-3">
+        <div class="row g-2 text-center">
+            <div class="col-10">
+                <input type="text" name="name" class="form-control" placeholder="Search" />
+            </div>
+            <div class="col-2">
+                <button type="submit" class="btn btn-primary w-100">Search</button>
+            </div>
+        </div>
 </div>
 
 </form>

@@ -1,4 +1,5 @@
 using E_commerce_Website.Data;
+using E_commerce_Website.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +15,10 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 //    .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
+// Dependency Indjection for DbContext
+//builder.Services.AddDbContext<ECommerceWebsiteContext>(options =>
+//    options.UseSqlServer(connectionString));
+builder.Services.AddScoped<ECommerceWebsiteContext>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -27,6 +32,8 @@ else
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+
 
 app.UseHttpsRedirection();
 app.UseRouting();
