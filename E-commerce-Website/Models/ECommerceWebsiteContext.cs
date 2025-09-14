@@ -42,6 +42,8 @@ public partial class ECommerceWebsiteContext : DbContext
 
         modelBuilder.Entity<Product>(entity =>
         {
+            entity.Property(e => e.DateAdded).HasDefaultValueSql("(getdate())");
+
             entity.HasOne(d => d.Category).WithMany(p => p.Products).HasConstraintName("FK_Products_Categories");
         });
 
