@@ -1,4 +1,8 @@
 ﻿@model ProductVM
+@{
+    var categories = ((SelectList)ViewBag.CatList)?.Select(c => new { label = c.Text, value = c.Text }).ToList();
+    var categoriesJson = categories != null ? System.Text.Json.JsonSerializer.Serialize(categories) : "[]";
+}
 <div class="col-lg-6">
     <form asp-action="Create" asp-controller="Products" method="post" class="myForm">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -10,7 +14,16 @@
             </div>
 
             <div class="col-md-6 ">
-                <input type="text" class="form-control" name="CategoryName" placeholder="CategoryName" >
+                <input list="category-list" class="form-control" name="CategoryName" placeholder="CategoryName" autocomplete="off" />
+                <datalist id="category-list">
+                    @if (ViewBag.CatList != null)
+                    {
+                        foreach (var item in (SelectList)ViewBag.CatList)
+                        {
+                            <option value="@item.Text"></option>
+                        }
+                    }
+                </datalist>
                 <span asp-validation-for="CategoryName" class="text-danger"></span>
             </div>
 

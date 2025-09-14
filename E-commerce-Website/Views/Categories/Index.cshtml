@@ -3,13 +3,34 @@
 @{
 	ViewData["Title"] = "Index";
 }
+
+<link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.dataTables.css" />
+
+<style>
+	div.dt-container select.dt-input {
+		margin-right: 10px;
+	}
+</style>
+
+<script src="https://cdn.datatables.net/2.3.4/js/dataTables.js"></script>
+
+<script>
+	$(document).ready(function () {
+		$('#categoryTable').DataTable();
+		});
+</script>
+
+
+<div class="container">
+
+
 <div class="p-3">
 	<h1>Index</h1>
 
 	<p>
 		<a asp-action="Create">Create New</a>
 	</p>
-	<table class="table">
+	<table class="table" id="categoryTable">
 		<thead>
 			<tr>
 				<th>
@@ -46,4 +67,6 @@
 			}
 		</tbody>
 	</table>
+</div>
+
 </div>
