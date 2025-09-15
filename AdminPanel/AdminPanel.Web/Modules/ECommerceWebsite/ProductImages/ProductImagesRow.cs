@@ -1,4 +1,4 @@
-﻿using Serenity.ComponentModel;
+using Serenity.ComponentModel;
 using Serenity.Data;
 using Serenity.Data.Mapping;
 using System.ComponentModel;
@@ -21,7 +21,7 @@ public sealed class ProductImagesRow : Row<ProductImagesRow.RowFields>, IIdRow, 
     [ServiceLookupEditor(typeof(ProductsRow))]
     public int? ProductId { get => fields.ProductId[this]; set => fields.ProductId[this] = value; }
 
-    [DisplayName("Image"), QuickSearch, NameProperty]
+    [DisplayName("Image"), QuickSearch, NameProperty,ImageUploadEditor]
     public string Image { get => fields.Image[this]; set => fields.Image[this] = value; }
 
     [DisplayName("Product Name"), Origin(jProduct, nameof(ProductsRow.Name))]

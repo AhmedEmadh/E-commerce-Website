@@ -1,8 +1,8 @@
-﻿import { ServiceLookupEditor, StringEditor, PrefixedContext, initFormType } from "@serenity-is/corelib";
+﻿import { ServiceLookupEditor, ImageUploadEditor, PrefixedContext, initFormType } from "@serenity-is/corelib";
 
 export interface ProductImagesForm {
     ProductId: ServiceLookupEditor;
-    Image: StringEditor;
+    Image: ImageUploadEditor;
 }
 
 export class ProductImagesForm extends PrefixedContext {
@@ -16,7 +16,7 @@ export class ProductImagesForm extends PrefixedContext {
             ProductImagesForm.init = true;
 
             var w0 = ServiceLookupEditor;
-            var w1 = StringEditor;
+            var w1 = ImageUploadEditor;
 
             initFormType(ProductImagesForm, [
                 'ProductId', w0,

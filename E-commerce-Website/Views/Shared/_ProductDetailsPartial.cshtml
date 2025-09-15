@@ -1,4 +1,5 @@
-﻿@model Product
+﻿@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
+@model Product
 <section id="portfolio-details" class="portfolio-details section">
 
 	<div class="container aos-init aos-animate" data-aos="fade-up">
@@ -43,7 +44,19 @@
 					{
 						<div class="swiper-slide">
 							<div class="testimonial-item">
-								<img src="@item.Image" width="300" height="300" class="testimonial-img" alt="">
+								@if (item.Image != null)
+								{
+									if (item.Image.Length > 0 && !(item.Image.StartsWith("https://") || item.Image.StartsWith("http://")))
+									{
+										<img src="@($"{Configuration["AdminPanelPath"]}upload/{item.Image}")"
+											 width="300" height="300" class="testimonial-img" alt="">
+									}
+									else
+									{
+										<img src="@item.Image"
+											 width="300" height="300" class="testimonial-img" alt="">
+									}
+								}
 							</div>
 						</div>
 						<!-- End testimonial item -->
