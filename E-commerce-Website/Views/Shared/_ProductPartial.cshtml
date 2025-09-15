@@ -1,0 +1,26 @@
+﻿@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
+@model Product
+@{
+    var adminPanelPath = Configuration["AdminPanelPath"];
+}
+<div class="col-lg-4 col-md-6 products-item isotope-item filter-app _@Model.Category.Id">
+    <div class="products-content h-100 text-center">
+        @if (!string.IsNullOrEmpty(Model.Photo))
+        {
+            <a href="@Model.Photo" data-gallery="products-gallery-app" class="glightbox">
+                @if (Model.Photo.Length > 0 && !(Model.Photo.StartsWith("https://") || Model.Photo.StartsWith("http://")))
+                {
+                    <img src="@adminPanelPath@("upload/" + Model.Photo.TrimStart('/'))" class="img-fluid" style="max-height: 400px;">
+                }
+                else
+                {
+                    <img src="@Model.Photo" class="img-fluid" style="max-height: 400px;">
+                }
+            </a>
+        }
+        <div class="products-info">
+            <h4><a href="/Home/CurrentProduct/@Model.Id" title="More Details">@Model.Name</a></h4>
+            <p>@Model.Price LE</p>
+        </div>
+    </div>
+</div>

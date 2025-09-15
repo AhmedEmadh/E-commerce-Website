@@ -31,7 +31,7 @@ public sealed class ProductsRow : Row<ProductsRow.RowFields>, IIdRow, INameRow
     [ServiceLookupEditor(typeof(CategoriesRow))]
     public int? CategoryId { get => fields.CategoryId[this]; set => fields.CategoryId[this] = value; }
 
-    [DisplayName("Photo")]
+    [DisplayName("Photo"),ImageUploadEditor]
     public string Photo { get => fields.Photo[this]; set => fields.Photo[this] = value; }
 
     [DisplayName("Date Added")]

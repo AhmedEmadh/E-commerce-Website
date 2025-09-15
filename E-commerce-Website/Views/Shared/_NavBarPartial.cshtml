@@ -1,7 +1,8 @@
-﻿
-@*
+﻿@*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
+
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
 
 <header id="header" class="header d-flex align-items-center fixed-top @((string?)ViewData["CurrentPage"] != "Home" ? "my-fixed-bar" : "")">
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
@@ -32,7 +33,6 @@
                 {
                     <li><a href="/Home/products">Products</a></li>
                 }
-
                 @if ((string?)ViewData["CurrentPage"] == "Categories")
                 {
                     <li><a href="/Home/Categories" class="active">Categories</a></li>
@@ -42,7 +42,7 @@
                 {
                     <li><a href="/Home/Categories">Categories</a></li>
                 }
-                <li><a href="https://localhost:56669/">Admin Panel</a></li>
+                <li><a href="@(Configuration["AdminPanelPath"])">Admin Panel</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="/Home/SearchProduct?name=">Search</a></li>
                 <li><a asp-action="Cart">Cart</a></li>
