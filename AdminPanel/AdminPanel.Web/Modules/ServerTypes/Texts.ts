@@ -61,6 +61,51 @@ namespace texts {
                 export const Username: string;
             }
         }
+
+        namespace ECommerceWebsite {
+
+            namespace Carts {
+                export const Id: string;
+                export const ProductId: string;
+                export const ProductName: string;
+                export const Quantity: string;
+                export const UserId: string;
+            }
+
+            namespace Categories {
+                export const Description: string;
+                export const Id: string;
+                export const Name: string;
+                export const Photo: string;
+            }
+
+            namespace ProductImages {
+                export const Id: string;
+                export const Image: string;
+                export const ProductId: string;
+                export const ProductName: string;
+            }
+
+            namespace Products {
+                export const CategoryId: string;
+                export const CategoryName: string;
+                export const DateAdded: string;
+                export const Description: string;
+                export const Id: string;
+                export const Name: string;
+                export const Photo: string;
+                export const Price: string;
+                export const Quantity: string;
+            }
+
+            namespace Reviews {
+                export const Description: string;
+                export const Email: string;
+                export const Id: string;
+                export const Name: string;
+                export const Subject: string;
+            }
+        }
     }
 
     export declare namespace Forms {
@@ -155,6 +200,13 @@ const Texts: typeof texts = proxyTexts({}, '', {
             User: {},
             UserPermission: {},
             UserRole: {}
+        },
+        ECommerceWebsite: {
+            Carts: {},
+            Categories: {},
+            ProductImages: {},
+            Products: {},
+            Reviews: {}
         }
     },
     Forms: {

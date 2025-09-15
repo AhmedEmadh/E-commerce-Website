@@ -2,8 +2,13 @@
 
 public static partial class ESM
 {
+    public const string CartsPage = "~/esm/Modules/ECommerceWebsite/Carts/CartsPage.js";
+    public const string CategoriesPage = "~/esm/Modules/ECommerceWebsite/Categories/CategoriesPage.js";
     public const string LanguagePage = "~/esm/Modules/Administration/Language/LanguagePage.js";
     public const string LoginPage = "~/esm/Modules/Membership/Account/Login/LoginPage.js";
+    public const string ProductImagesPage = "~/esm/Modules/ECommerceWebsite/ProductImages/ProductImagesPage.js";
+    public const string ProductsPage = "~/esm/Modules/ECommerceWebsite/Products/ProductsPage.js";
+    public const string ReviewsPage = "~/esm/Modules/ECommerceWebsite/Reviews/ReviewsPage.js";
     public const string RolePage = "~/esm/Modules/Administration/Role/RolePage.js";
     public const string ScriptInit = "~/esm/Modules/Common/ScriptInit.js";
     public const string SignUpPage = "~/esm/Modules/Membership/Account/SignUp/SignUpPage.js";
@@ -38,6 +43,34 @@ public static partial class ESM
         public static partial class Common
         {
             public const string ScriptInit = "~/esm/Modules/Common/ScriptInit.js";
+        }
+
+        public static partial class ECommerceWebsite
+        {
+            public static partial class Carts
+            {
+                public const string CartsPage = "~/esm/Modules/ECommerceWebsite/Carts/CartsPage.js";
+            }
+
+            public static partial class Categories
+            {
+                public const string CategoriesPage = "~/esm/Modules/ECommerceWebsite/Categories/CategoriesPage.js";
+            }
+
+            public static partial class ProductImages
+            {
+                public const string ProductImagesPage = "~/esm/Modules/ECommerceWebsite/ProductImages/ProductImagesPage.js";
+            }
+
+            public static partial class Products
+            {
+                public const string ProductsPage = "~/esm/Modules/ECommerceWebsite/Products/ProductsPage.js";
+            }
+
+            public static partial class Reviews
+            {
+                public const string ReviewsPage = "~/esm/Modules/ECommerceWebsite/Reviews/ReviewsPage.js";
+            }
         }
 
         public static partial class Membership

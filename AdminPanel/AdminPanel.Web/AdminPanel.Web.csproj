@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Serenity.Assets" Version="8.8.9" />
+    <PackageReference Include="Serenity.CodeGenerator" Version="3.14.5" />
     <PackageReference Include="Serenity.Corelib" Version="8.8.9" />
     <PackageReference Include="Serenity.Net.Web" Version="8.8.9" />
     <PackageReference Include="Serenity.Extensions" Version="8.8.9" />
