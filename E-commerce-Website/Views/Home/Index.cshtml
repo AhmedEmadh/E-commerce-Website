@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Home Page";
     ViewData["CurrentPage"] = "Home";
+    TempData["CurrentPage"] = "Home";
 }
 
 @await Html.PartialAsync("_SearchBarPartial")

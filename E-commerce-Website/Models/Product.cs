@@ -25,7 +25,7 @@ public partial class Product
     [Column(TypeName = "datetime")]
     public DateTime? DateAdded { get; set; }
 
-    public int? Quantity { get; set; }
+    public int Quantity { get; set; }
 
     [InverseProperty("Product")]
     public virtual ICollection<Cart> Carts { get; set; } = new List<Cart>();

@@ -1,6 +1,7 @@
 ﻿@model List<Product>
 @{
-    ViewData["CurrentPage"] = "Products";   
+    ViewData["CurrentPage"] = "Products";
+    TempData["CurrentPage"] = "Products";
 }
 
 @await Html.PartialAsync("_ProductsWithoutFilterPartial", Model)
