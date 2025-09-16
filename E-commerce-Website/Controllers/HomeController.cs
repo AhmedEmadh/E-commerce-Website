@@ -34,7 +34,6 @@ namespace E_commerce_Website.Controllers
         }
         public IActionResult Categories()
         {
-            ViewBag.isAdmin = true;
             var categories = db.Categories.ToList();
             return View(categories);
         }

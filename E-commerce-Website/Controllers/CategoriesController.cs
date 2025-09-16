@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using E_commerce_Website.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace E_commerce_Website.Controllers
 {
@@ -19,6 +20,7 @@ namespace E_commerce_Website.Controllers
         }
 
         // GET: Categories
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Categories.ToListAsync());

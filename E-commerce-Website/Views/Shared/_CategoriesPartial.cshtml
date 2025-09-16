@@ -28,7 +28,7 @@
                 </div>
                 <!-- End Category Item -->
             }
-            @if((bool?)ViewBag.isAdmin == true )
+            @if(User.IsInRole("admin"))
             {
                 <a class="btn btn-primary col-12" asp-controller="Categories" asp-action="Index">Control Categories</a>
             }
