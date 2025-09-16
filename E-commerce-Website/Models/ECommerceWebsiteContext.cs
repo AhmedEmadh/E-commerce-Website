@@ -31,6 +31,10 @@ public partial class ECommerceWebsiteContext : DbContext
 
     public virtual DbSet<Category> Categories { get; set; }
 
+    public virtual DbSet<Order> Orders { get; set; }
+
+    public virtual DbSet<OrderDetail> OrderDetails { get; set; }
+
     public virtual DbSet<Product> Products { get; set; }
 
     public virtual DbSet<ProductImage> ProductImages { get; set; }
@@ -74,6 +78,30 @@ public partial class ECommerceWebsiteContext : DbContext
             entity.HasOne(d => d.Product).WithMany(p => p.Carts)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Carts_Products");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Carts)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Carts_AspNetUsers");
+        });
+
+        modelBuilder.Entity<Order>(entity =>
+        {
+            entity.Property(e => e.DateAdded).HasDefaultValueSql("(getdate())");
+        });
+
+        modelBuilder.Entity<OrderDetail>(entity =>
+        {
+            entity.HasOne(d => d.Order).WithMany(p => p.OrderDetails)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_OrderDetails_Order");
+
+            entity.HasOne(d => d.Product).WithMany(p => p.OrderDetails)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_OrderDetails_Products");
+
+            entity.HasOne(d => d.User).WithMany(p => p.OrderDetails)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_OrderDetails_AspNetUsers");
         });
 
         modelBuilder.Entity<Product>(entity =>

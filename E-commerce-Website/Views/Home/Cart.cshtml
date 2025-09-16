@@ -64,7 +64,13 @@
 			</tr>
 		</tbody>
 	</table>
-	<a class="btn btn-primary m-2">Order Now</a>
+	<form method="post" asp-controller="Home" asp-action="AddOrder">
+		<input class="form-control" id="name" name="Name" placeholder="Name" />
+		<input class="form-control" id="address" name="Address" placeholder="Address" />
+		<input class="form-control" id="email" name="Email" placeholder="Email" />
+		<input class="form-control" id="phone" name="Phone" placeholder="Phone" />
+		<button type="submit" class="btn btn-primary">Order Now</button>
+	</form>
 </div>
 
 

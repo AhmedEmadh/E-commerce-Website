@@ -53,6 +53,12 @@ public partial class AspNetUser
     [InverseProperty("User")]
     public virtual ICollection<AspNetUserToken> AspNetUserTokens { get; set; } = new List<AspNetUserToken>();
 
+    [InverseProperty("User")]
+    public virtual ICollection<Cart> Carts { get; set; } = new List<Cart>();
+
+    [InverseProperty("User")]
+    public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
+
     [ForeignKey("UserId")]
     [InverseProperty("Users")]
     public virtual ICollection<AspNetRole> Roles { get; set; } = new List<AspNetRole>();

@@ -164,7 +164,54 @@ namespace E_commerce_Website.Controllers
             }
             return RedirectToAction("Cart");
         }
+        [Authorize(Roles = "visitor")]
+        public IActionResult AddOrder(OrderVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = _userManager.GetUserAsync(User).Result;
+                if (user == null)
+                {
+                    return RedirectToAction("index");
+                }
+                var carts = db.Carts.Include(c => c.Product).Where(c => c.UserId == user.Id).ToList();
+                if (carts.Count > 0)
+                {
+                    Order order = new Order
+                    {
+                        Name = model.Name,
+                        Address = model.Address,
+                        Email = model.Email,
+                        Phone = model.Phone,
+                        UserId = user.Id,
+                    };
+                    db.Orders.Add(order);
+                    db.SaveChanges(); // Save order to generate order.Id
 
+                    foreach (var cart in carts)
+                    {
+                        OrderDetail orderDetail = new OrderDetail
+                        {
+                            OrderId = order.Id,
+                            ProductId = cart.ProductId,
+                            Quantity = cart.Quantity,
+                            Price = (decimal)cart.Product.Price,
+                            UserId = user.Id // Set UserId to avoid null
+                        };
+                        db.OrderDetails.Add(orderDetail);
+                        var product = db.Products.FirstOrDefault(p => p.Id == cart.ProductId);
+                        if (product != null)
+                        {
+                            product.Quantity -= cart.Quantity;
+                        }
+                    }
+                    db.Carts.RemoveRange(carts);
+                    db.SaveChanges();
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            return RedirectToAction("Cart");
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
