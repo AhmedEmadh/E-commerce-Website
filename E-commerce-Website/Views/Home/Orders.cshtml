@@ -1,0 +1,30 @@
+﻿@model List<E_commerce_Website.Models.Order>
+<div class="container">
+	<h1>Orders</h1>
+	<table class="table table-striped table-bordered">
+		<thead>
+			<tr>
+				<th>Order ID</th>
+				<th>Date</th>
+				<th>Total Amount</th>
+				<th>Status</th>
+				<th>Details</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var order in Model)
+			{
+				<tr>
+					<td>@order.Id</td>
+					<td>@order.DateAdded?.ToString("MM/dd/yyyy")</td>
+					<td>
+						@(order.TotalPrice?.ToString("C", new System.Globalization.CultureInfo("en-US") { NumberFormat = { CurrencySymbol = " LE " } })
+											)
+				</td>
+				<td>@((E_commerce_Website.Models.OrderStatus)(order.Status ?? 0))</td>
+				<td><a class="btn btn-info" asp-action="OrderDetails" asp-route-id="@order.Id">View Details</a></td>
+			</tr>
+			}
+		</tbody>
+	</table>
+</div>

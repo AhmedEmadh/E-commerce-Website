@@ -176,6 +176,16 @@ namespace E_commerce_Website.Controllers
                 var carts = db.Carts.Include(c => c.Product).Where(c => c.UserId == user.Id).ToList();
                 if (carts.Count > 0)
                 {
+                    // Check stock before placing order
+                    foreach (var cart in carts)
+                    {
+                        if (cart.Product.Quantity < cart.Quantity)
+                        {
+                            TempData["CartError"] = $"Not enough stock for product: {cart.Product.Name}. Available: {cart.Product.Quantity}, Requested: {cart.Quantity}";
+                            return RedirectToAction("Cart");
+                        }
+                    }
+
                     Order order = new Order
                     {
                         Name = model.Name,
@@ -183,12 +193,19 @@ namespace E_commerce_Website.Controllers
                         Email = model.Email,
                         Phone = model.Phone,
                         UserId = user.Id,
+                        TotalPrice = carts.Sum(c => (c.Quantity) * (c.Product.Price)),
                     };
                     db.Orders.Add(order);
                     db.SaveChanges(); // Save order to generate order.Id
 
                     foreach (var cart in carts)
                     {
+                        var product = db.Products.FirstOrDefault(p => p.Id == cart.ProductId);
+                        if (product != null)
+                        {
+                            product.Quantity -= cart.Quantity;
+                            if (product.Quantity < 0) product.Quantity = 0; // Prevent negative stock
+                        }
                         OrderDetail orderDetail = new OrderDetail
                         {
                             OrderId = order.Id,
@@ -198,11 +215,6 @@ namespace E_commerce_Website.Controllers
                             UserId = user.Id // Set UserId to avoid null
                         };
                         db.OrderDetails.Add(orderDetail);
-                        var product = db.Products.FirstOrDefault(p => p.Id == cart.ProductId);
-                        if (product != null)
-                        {
-                            product.Quantity -= cart.Quantity;
-                        }
                     }
                     db.Carts.RemoveRange(carts);
                     db.SaveChanges();
@@ -210,6 +222,34 @@ namespace E_commerce_Website.Controllers
                 }
             }
             return RedirectToAction("Cart");
+        }
+        [Authorize(Roles = "visitor")]
+        public IActionResult Orders()
+        {
+            var user = _userManager.GetUserAsync(User).Result;
+            if (user == null)
+            {
+                return RedirectToAction("index");
+            }
+            var orders = db.Orders.Where(o => o.UserId == user.Id).ToList();
+            return View(orders);
+        }
+        [Authorize(Roles = "visitor")]
+        public IActionResult OrderDetails(int id)
+        {
+            var user = _userManager.GetUserAsync(User).Result;
+            if (user == null)
+            {
+                return RedirectToAction("index");
+            }
+            var order = db.Orders.Include(o => o.OrderDetails)
+                                 .ThenInclude(od => od.Product)
+                                 .FirstOrDefault(o => o.Id == id && o.UserId == user.Id);
+            if (order == null)
+            {
+                return NotFound();
+            }
+            return View(order);
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

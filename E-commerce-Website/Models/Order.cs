@@ -26,6 +26,18 @@ public partial class Order
     [Column(TypeName = "datetime")]
     public DateTime? DateAdded { get; set; }
 
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? TotalPrice { get; set; }
+
+    public int? Status { get; set; }
+
+    [NotMapped]
+    public OrderStatus StatusEnum
+    {
+        get { return (OrderStatus)(Status ?? 0); }
+        set { Status = (int)value; }
+    }
+
     [InverseProperty("Order")]
     public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
 }

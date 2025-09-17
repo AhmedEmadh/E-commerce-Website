@@ -7,6 +7,10 @@
 }
 <div class="container text-center">
 	<h1>Cart</h1>
+	@if (TempData["CartError"] != null)
+	{
+		<div class="alert alert-danger">@TempData["CartError"]</div>
+	}
 	<table class="table table-striped table-bordered">
 		<thead>
 
@@ -69,7 +73,7 @@
 		<input class="form-control" id="address" name="Address" placeholder="Address" />
 		<input class="form-control" id="email" name="Email" placeholder="Email" />
 		<input class="form-control" id="phone" name="Phone" placeholder="Phone" />
-		<button type="submit" class="btn btn-primary">Order Now</button>
+		<button type="submit" class="btn btn-primary m-2">Order Now</button>
 	</form>
 </div>
 

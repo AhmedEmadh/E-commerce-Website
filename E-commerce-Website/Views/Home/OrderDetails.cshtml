@@ -1,0 +1,52 @@
+@model E_commerce_Website.Models.Order
+@using E_commerce_Website.Models
+<div class="container">
+	<h1>Order Details - #@Model.Id</h1>
+	<div>
+		<strong>Date:</strong> @Model.DateAdded?.ToString("MM/dd/yyyy")<br />
+		<strong>Status:</strong> @((OrderStatus)(Model.Status ?? 0))<br />
+		<strong>Total Price:</strong> @(Model.TotalPrice?.ToString("C", new System.Globalization.CultureInfo("en-US") { NumberFormat = { CurrencySymbol = " LE " } }))<br />
+	</div>
+	<hr />
+	<h3>Shipping Information</h3>
+	<ul>
+		<li><strong>Name:</strong> @Model.Name</li>
+		<li><strong>Address:</strong> @Model.Address</li>
+		<li><strong>Email:</strong> @Model.Email</li>
+		<li><strong>Phone:</strong> @Model.Phone</li>
+	</ul>
+	<hr />
+	<h3>Products</h3>
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>Product</th>
+				<th>Photo</th>
+				<th>Quantity</th>
+				<th>Price</th>
+				<th>Subtotal</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model.OrderDetails)
+			{
+				<tr>
+					<td>@item.Product?.Name</td>
+					<td>
+						@if (!string.IsNullOrEmpty(item.Product?.Photo))
+						{
+							<img src="@item.Product.Photo" style="max-width:100px;max-height:100px" />
+						}
+					</td>
+					<td>@item.Quantity</td>
+					<td>@item.Price.ToString("C", new System.Globalization.CultureInfo("en-US") { NumberFormat = { CurrencySymbol = " LE " } })</td>
+					<td>@((item.Price * item.Quantity).ToString("C", new System.Globalization.CultureInfo("en-US") { NumberFormat = { CurrencySymbol = " LE " } }))</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+	<div class="text-center m-3">
+	<a asp-action="Orders" class="btn btn-secondary">Back to Orders</a>
+
+	</div>
+</div>
