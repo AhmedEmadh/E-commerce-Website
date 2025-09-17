@@ -110,33 +110,41 @@ namespace E_commerce_Website.Controllers
         [Authorize]
         public async Task<IActionResult> AddProductToCart(int id)
         {
-
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
                 return RedirectToAction("index");
             }
-            var cart = db.Carts.Include(c => c.Product).FirstOrDefault(c => c.ProductId == id);
+            var product = db.Products.FirstOrDefault(p => p.Id == id);
+            if (product == null || product.Quantity <= 0)
+            {
+                TempData["CartError"] = "This product is out of stock and cannot be added to the cart.";
+                return RedirectToAction("Cart");
+            }
+            var cart = db.Carts.Include(c => c.Product).FirstOrDefault(c => c.ProductId == id && c.UserId == user.Id);
             if (cart == null)
             {
-                db.Add(new Cart { ProductId = id, UserId = user.Id, Quantity = 1, });
+                db.Add(new Cart { ProductId = id, UserId = user.Id, Quantity = 1 });
             }
             else
             {
-                if (cart.Quantity + 1 <= cart.Product.Quantity)
+                if (cart.Quantity + 1 <= product.Quantity)
                 {
                     cart.Quantity += 1;
+                }
+                else
+                {
+                    TempData["CartError"] = $"Cannot add more than available stock. Only {product.Quantity} left.";
+                    return RedirectToAction("Cart");
                 }
             }
             db.SaveChanges();
             if (TempData["CurrentPage"]?.ToString() == "Home")
             {
-                // Redirect to HomeController → Index action
                 return RedirectToAction("Index", "Home");
             }
             else if (TempData["CurrentPage"]?.ToString() == "Product")
             {
-                // Redirect to HomeController → Products action
                 return RedirectToAction("Products", "Home");
             }
             else

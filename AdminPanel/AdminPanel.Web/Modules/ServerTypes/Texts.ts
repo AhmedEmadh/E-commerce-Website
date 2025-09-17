@@ -79,6 +79,30 @@ namespace texts {
                 export const Photo: string;
             }
 
+            namespace Order {
+                export const Address: string;
+                export const DateAdded: string;
+                export const Email: string;
+                export const Id: string;
+                export const Name: string;
+                export const Phone: string;
+                export const Status: string;
+                export const TotalPrice: string;
+                export const UserId: string;
+            }
+
+            namespace OrderDetails {
+                export const Id: string;
+                export const OrderId: string;
+                export const OrderName: string;
+                export const Price: string;
+                export const ProductId: string;
+                export const ProductName: string;
+                export const Quantity: string;
+                export const UserId: string;
+                export const UserName: string;
+            }
+
             namespace ProductImages {
                 export const Id: string;
                 export const Image: string;
@@ -204,6 +228,8 @@ const Texts: typeof texts = proxyTexts({}, '', {
         ECommerceWebsite: {
             Carts: {},
             Categories: {},
+            Order: {},
+            OrderDetails: {},
             ProductImages: {},
             Products: {},
             Reviews: {}

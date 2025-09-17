@@ -6,6 +6,8 @@ public static partial class ESM
     public const string CategoriesPage = "~/esm/Modules/ECommerceWebsite/Categories/CategoriesPage.js";
     public const string LanguagePage = "~/esm/Modules/Administration/Language/LanguagePage.js";
     public const string LoginPage = "~/esm/Modules/Membership/Account/Login/LoginPage.js";
+    public const string OrderDetailsPage = "~/esm/Modules/ECommerceWebsite/OrderDetails/OrderDetailsPage.js";
+    public const string OrderPage = "~/esm/Modules/ECommerceWebsite/Order/OrderPage.js";
     public const string ProductImagesPage = "~/esm/Modules/ECommerceWebsite/ProductImages/ProductImagesPage.js";
     public const string ProductsPage = "~/esm/Modules/ECommerceWebsite/Products/ProductsPage.js";
     public const string ReviewsPage = "~/esm/Modules/ECommerceWebsite/Reviews/ReviewsPage.js";
@@ -55,6 +57,16 @@ public static partial class ESM
             public static partial class Categories
             {
                 public const string CategoriesPage = "~/esm/Modules/ECommerceWebsite/Categories/CategoriesPage.js";
+            }
+
+            public static partial class Order
+            {
+                public const string OrderPage = "~/esm/Modules/ECommerceWebsite/Order/OrderPage.js";
+            }
+
+            public static partial class OrderDetails
+            {
+                public const string OrderDetailsPage = "~/esm/Modules/ECommerceWebsite/OrderDetails/OrderDetailsPage.js";
             }
 
             public static partial class ProductImages
