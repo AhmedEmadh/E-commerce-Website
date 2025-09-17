@@ -2,6 +2,7 @@
 
 public static partial class ESM
 {
+    public const string AspNetUsersPage = "~/esm/Modules/ECommerceWebsite/AspNetUsers/AspNetUsersPage.js";
     public const string CartsPage = "~/esm/Modules/ECommerceWebsite/Carts/CartsPage.js";
     public const string CategoriesPage = "~/esm/Modules/ECommerceWebsite/Categories/CategoriesPage.js";
     public const string LanguagePage = "~/esm/Modules/Administration/Language/LanguagePage.js";
@@ -49,6 +50,11 @@ public static partial class ESM
 
         public static partial class ECommerceWebsite
         {
+            public static partial class AspNetUsers
+            {
+                public const string AspNetUsersPage = "~/esm/Modules/ECommerceWebsite/AspNetUsers/AspNetUsersPage.js";
+            }
+
             public static partial class Carts
             {
                 public const string CartsPage = "~/esm/Modules/ECommerceWebsite/Carts/CartsPage.js";

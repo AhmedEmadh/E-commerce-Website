@@ -64,6 +64,24 @@ namespace texts {
 
         namespace ECommerceWebsite {
 
+            namespace AspNetUsers {
+                export const AccessFailedCount: string;
+                export const ConcurrencyStamp: string;
+                export const Email: string;
+                export const EmailConfirmed: string;
+                export const Id: string;
+                export const LockoutEnabled: string;
+                export const LockoutEnd: string;
+                export const NormalizedEmail: string;
+                export const NormalizedUserName: string;
+                export const PasswordHash: string;
+                export const PhoneNumber: string;
+                export const PhoneNumberConfirmed: string;
+                export const SecurityStamp: string;
+                export const TwoFactorEnabled: string;
+                export const UserName: string;
+            }
+
             namespace Carts {
                 export const Id: string;
                 export const ProductId: string;
@@ -226,6 +244,7 @@ const Texts: typeof texts = proxyTexts({}, '', {
             UserRole: {}
         },
         ECommerceWebsite: {
+            AspNetUsers: {},
             Carts: {},
             Categories: {},
             Order: {},
