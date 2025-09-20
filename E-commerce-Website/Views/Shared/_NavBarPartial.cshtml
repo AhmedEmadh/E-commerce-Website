@@ -31,7 +31,7 @@
 				}
 				else
 				{
-					<li><a href="/Home/products">Products</a></li>
+					<li><a href="/Home/SearchProduct?name=">Products</a></li>
 				}
 				@if ((string?)ViewData["CurrentPage"] == "Categories")
 				{
@@ -44,10 +44,10 @@
 				}
 				@if (User.IsInRole("admin"))
 				{
-					<li><a href="@(Configuration["AdminPanelPath"])">Admin Panel</a></li>
+					<li><a href="@(Configuration["AdminPanelPath"])" target="_blank">Admin Panel</a></li>
 				}
-				<li><a href="#about">About</a></li>
-				<li><a href="/Home/SearchProduct?name=">Search</a></li>
+				@* <li><a href="#about">About</a></li> *@
+				@* <li><a href="/Home/SearchProduct?name=">Search</a></li> *@
 				@if (User.Identity.IsAuthenticated)
 				{
 					<li><a asp-action="Cart">Cart</a></li>

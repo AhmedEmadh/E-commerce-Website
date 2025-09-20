@@ -68,13 +68,54 @@
 			</tr>
 		</tbody>
 	</table>
+
 	<form method="post" asp-controller="Home" asp-action="AddOrder">
-		<input class="form-control" id="name" name="Name" placeholder="Name" />
-		<input class="form-control" id="address" name="Address" placeholder="Address" />
-		<input class="form-control" id="email" name="Email" placeholder="Email" />
-		<input class="form-control" id="phone" name="Phone" placeholder="Phone" />
-		<button type="submit" class="btn btn-primary m-2">Order Now</button>
+		<div class="container mt-3">
+			<!-- Title centered -->
+			<h1 class="mb-4 text-center">Place Your Order</h1>
+
+			<!-- Name -->
+			<div class="row mb-3 justify-content-center">
+				<label for="name" class="col-sm-2 col-form-label text-start">Name</label>
+				<div class="col-sm-6">
+					<input class="form-control" id="name" name="Name" placeholder="Enter your name" />
+				</div>
+			</div>
+
+			<!-- Address -->
+			<div class="row mb-3 justify-content-center">
+				<label for="address" class="col-sm-2 col-form-label text-start">Address</label>
+				<div class="col-sm-6">
+					<input class="form-control" id="address" name="Address" placeholder="Enter your address" />
+				</div>
+			</div>
+
+			<!-- Email -->
+			<div class="row mb-3 justify-content-center">
+				<label for="email" class="col-sm-2 col-form-label text-start">Email</label>
+				<div class="col-sm-6">
+					<input class="form-control" id="email" name="Email" placeholder="Enter your email" />
+				</div>
+			</div>
+
+			<!-- Phone -->
+			<div class="row mb-3 justify-content-center">
+				<label for="phone" class="col-sm-2 col-form-label text-start">Phone</label>
+				<div class="col-sm-6">
+					<input class="form-control" id="phone" name="Phone" placeholder="Enter your phone" />
+				</div>
+			</div>
+
+			<!-- Button -->
+			<div class="row justify-content-center">
+				<div class="col-sm-8 text-center">
+					<button type="submit" class="btn btn-primary">Order Now</button>
+				</div>
+			</div>
+		</div>
 	</form>
+
+
 </div>
 
 

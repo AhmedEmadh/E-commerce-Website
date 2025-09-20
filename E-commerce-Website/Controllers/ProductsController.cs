@@ -39,5 +39,17 @@ namespace E_commerce_Website.Controllers
             ViewBag.CatList = new SelectList(CatList, "Id", "Name");
             return View("Index", model);
         }
+        public IActionResult GetAllProducts(int id)
+        {
+            var products = db.Products.Select(p=> new
+            {
+                p.Id,
+                p.Name,
+                p.Price,
+                p.Quantity,
+                CategoryName = p.Category != null ? p.Category.Name : ""
+            }).ToList();
+            return Ok(products);
+        }
     }
 }
