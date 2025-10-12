@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using E_commerce_Website.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Razor.Language;
@@ -43,7 +44,7 @@ namespace E_commerce_Website.Controllers
             List<Product> products;
             if (id != null)
             {
-                products = db.Products.Include(p=>p.Carts).Where(p => p.CategoryId == id).Include(product => product.Category).ToList();
+                products = db.Products.Include(p => p.Carts).Where(p => p.CategoryId == id).Include(product => product.Category).ToList();
 
             }
             else
@@ -68,7 +69,7 @@ namespace E_commerce_Website.Controllers
             }
             else
             {
-                products = db.Products.Include(p=>p.Carts).Include(product => product.Category).ToList();
+                products = db.Products.Include(p => p.Carts).Include(product => product.Category).ToList();
             }
 
             return View(products);
@@ -101,11 +102,56 @@ namespace E_commerce_Website.Controllers
             var user = await _userManager.GetUserAsync(User);
             if (user != null)
             {
-                carts = db.Carts.Include(c=>c.Product).Where(c => c.UserId == user.Id).ToList();
-                ViewBag.TotalPrice = carts.Sum(c=>(c.Quantity)*(c.Product.Price));
+                carts = db.Carts.Include(c => c.Product).Where(c => c.UserId == user.Id).ToList();
+                ViewBag.TotalPrice = carts.Sum(c => (c.Quantity) * (c.Product.Price));
                 return View(carts);
             }
             return View(carts);
+        }
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> AddProductToCartApi(int id)
+        {
+            // Get the current user
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return Unauthorized(new { message = "User not logged in" });
+            }
+
+            // Get the product
+            var product = await db.Products.FirstOrDefaultAsync(p => p.Id == id);
+            if (product == null)
+            {
+                return NotFound(new { message = "The product was not found" });
+            }
+
+            if (product.Quantity <= 0)
+            {
+                return BadRequest(new { message = "The product is out of stock" });
+            }
+
+            // Check if product is already in the cart
+            var cart = await db.Carts.FirstOrDefaultAsync(c => c.UserId == user.Id && c.ProductId == product.Id);
+
+            if (cart == null)
+            {
+                await db.Carts.AddAsync(new Cart { ProductId = product.Id, UserId = user.Id });
+            }
+            else
+            {
+                return Conflict(new { message = "The product is already in the cart" });
+            }
+
+            var result = await db.SaveChangesAsync();
+            if (result > 0)
+            {
+                return Ok(new { message = "Product added to cart successfully" });
+            }
+            else
+            {
+                return StatusCode(500, new { message = "An error occurred, the product was not added to the cart." });
+            }
         }
         [Authorize]
         public async Task<IActionResult> AddProductToCart(int id)
