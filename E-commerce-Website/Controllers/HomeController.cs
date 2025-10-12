@@ -156,34 +156,29 @@ namespace E_commerce_Website.Controllers
         [Authorize]
         public async Task<IActionResult> AddProductToCart(int id)
         {
+            //Get Current User
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
                 return RedirectToAction("index");
             }
+            //Get Product with id
             var product = db.Products.FirstOrDefault(p => p.Id == id);
             if (product == null || product.Quantity <= 0)
             {
+                //If product not found or out of stock show (out of stock)
                 TempData["CartError"] = "This product is out of stock and cannot be added to the cart.";
                 return RedirectToAction("Cart");
             }
+            //Find Cart item for current product and current user
             var cart = db.Carts.Include(c => c.Product).FirstOrDefault(c => c.ProductId == id && c.UserId == user.Id);
-            if (cart == null)
+            if (cart != null)
             {
-                db.Add(new Cart { ProductId = id, UserId = user.Id, Quantity = 1 });
+                // if there is cart item for the product direct to the cart without showing any message
+                return RedirectToAction("Cart");
             }
-            else
-            {
-                if (cart.Quantity + 1 <= product.Quantity)
-                {
-                    cart.Quantity += 1;
-                }
-                else
-                {
-                    TempData["CartError"] = $"Cannot add more than available stock. Only {product.Quantity} left.";
-                    return RedirectToAction("Cart");
-                }
-            }
+            //if there is no cart item for the current product => Add the current product to the cart
+            db.Add(new Cart { ProductId = id, UserId = user.Id, Quantity = 1 });
             db.SaveChanges();
             if (TempData["CurrentPage"]?.ToString() == "Home")
             {
