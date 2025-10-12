@@ -88,13 +88,15 @@ namespace E_commerce_Website.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-        public IActionResult CurrentProduct(int? id)
+        public async Task<IActionResult> CurrentProduct(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            Product? product = db.Products.Include(p => p.Category).Include(product => product.ProductImages).FirstOrDefault(p => p.Id == id);
+            var user = await _userManager.GetUserAsync(User);
+
+            Product? product = db.Products.Include(p => p.Category).Include(product => product.ProductImages).Include(product=>product.Carts.Where(c=> (user != null) && (c.UserId == user.Id))).FirstOrDefault(p => p.Id == id);
             if (product == null)
             {
                 return NotFound();
