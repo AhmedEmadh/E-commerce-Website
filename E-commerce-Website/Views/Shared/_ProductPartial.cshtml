@@ -22,21 +22,32 @@
 			<h4><a href="/Home/CurrentProduct/@Model.Id" title="More Details">@Model.Name</a></h4>
 			<p>@Model.Price LE</p>
 			<p>@Model.Quantity item in stock</p>
-			@if ( Model.Carts.Count > 0)
+			@if (Model.Carts.Count > 0)
 			{
 				<p>@Model.Carts.First().Quantity Items in cart</p>
 
 			}
 		</div>
-		@if (Model.Quantity > 0)
+		@if (Model.Carts.Count > 0)
 		{
-			<a type="submit" class="btn btn-success m-2" asp-controller="Home"
+			@* If Product is in cart *@
+			<a type="submit" class="btn btn-primary m-2" asp-controller="Home"
 			   asp-action="AddProductToCart"
-			   asp-route-id="@Model.Id"><i class="bi-plus"></i> Add to Cart</a>
+			   asp-route-id="@Model.Id"><i class="bi-cart"></i> Go to Cart</a>
 		}
 		else
 		{
-			<button class="btn btn-secondary m-2" disabled>Out of Stock</button>
+			@* If Product is not in cart *@
+			@if (Model.Quantity > 0)
+			{
+				<a type="submit" class="btn btn-success m-2" asp-controller="Home"
+				   asp-action="AddProductToCart"
+				   asp-route-id="@Model.Id"><i class="bi-plus"></i> Add to Cart</a>
+			}
+			else
+			{
+				<button class="btn btn-secondary m-2" disabled>Out of Stock</button>
+			}
 		}
 	</div>
 </div>
