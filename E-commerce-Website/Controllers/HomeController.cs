@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Threading.Tasks;
 using E_commerce_Website.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -58,18 +59,23 @@ namespace E_commerce_Website.Controllers
             return View(products);
         }
         [HttpGet]
-        public IActionResult SearchProduct(string name)
+        public async Task<IActionResult> SearchProduct(string name)
         {
+            //Get Current User
+            var user = await _userManager.GetUserAsync(User);
+            //Get List of All Products
             List<Product> products = new List<Product>();
             if (!string.IsNullOrEmpty(name))
             {
+                //If Search Keyword is not empty => filter by search word
                 products = db.Products.Include(p => p.Carts)
                                 .Where(x => x.Name.Contains(name)).Include(product => product.Category)
                                 .ToList();
             }
             else
             {
-                products = db.Products.Include(p => p.Carts).Include(product => product.Category).ToList();
+                //If Search keyword is empty => Just show all products
+                products = db.Products.Include(p => p.Carts.Where(c => user != null && (c.UserId == user.Id))).Include(product => product.Category).ToList();
             }
 
             return View(products);
