@@ -12,9 +12,7 @@ else
 	@* If Product is not in cart *@
 	@if (Model.Quantity > 0)
 	{
-		<a type="submit" class="btn btn-success m-2" asp-controller="Home"
-		   asp-action="AddProductToCart"
-		   asp-route-id="@Model.Id"><i class="bi-plus"></i> Add to Cart</a>
+		<button type="button" class="btn btn-success m-2" onclick="ajaxRequest('post', '/Home/AddProductToCartApi', { id: @Model.Id }, function(){changeButtonToGoToCart(@Model.Id, this)}, function(msg){alert('An Error Occured While Adding Item to Cart')})"><i class="bi-plus"></i> Add to Cart</button>
 	}
 	else
 	{
