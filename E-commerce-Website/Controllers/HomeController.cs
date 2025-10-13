@@ -118,9 +118,19 @@ namespace E_commerce_Website.Controllers
             return View(carts);
         }
         [Authorize]
-        [HttpGet]
-        public async Task<IActionResult> AddProductToCartApi(int id)
+        [HttpPost]
+        public async Task<IActionResult> AddProductToCartApi([FromBody] AddToCartDM? model)
         {
+            if(model == null)
+            {
+                return BadRequest(new { message = "Invalid data" });
+            }
+            // check model state
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new { message = "Invalid data" });
+            }
+
             // Get the current user
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
@@ -129,7 +139,7 @@ namespace E_commerce_Website.Controllers
             }
 
             // Get the product
-            var product = await db.Products.FirstOrDefaultAsync(p => p.Id == id);
+            var product = await db.Products.FirstOrDefaultAsync(p => p.Id == model.id);
             if (product == null)
             {
                 return NotFound(new { message = "The product was not found" });
@@ -145,7 +155,7 @@ namespace E_commerce_Website.Controllers
 
             if (cart == null)
             {
-                await db.Carts.AddAsync(new Cart { ProductId = product.Id, UserId = user.Id });
+                await db.Carts.AddAsync(new Cart { ProductId = product.Id, UserId = user.Id, Quantity = 1});
             }
             else
             {
