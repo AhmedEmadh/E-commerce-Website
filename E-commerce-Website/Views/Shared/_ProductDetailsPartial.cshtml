@@ -95,9 +95,7 @@
                         <li><strong>Project URL</strong> <a href="#">www.example.com</a></li>
                         <li><a href="#" class="btn-visit align-self-start">Visit Website</a></li> *@
 					</ul>
-					<a type="submit" class="btn btn-success m-2" asp-controller="Home"
-					   asp-action="AddProductToCart"
-					   asp-route-id="@Model.Id"><i class="bi-plus"></i> Add to Cart</a>
+					<partial name="_AddToCartButtonPartial" model="Model" />
 				</div>
 			</div>
 

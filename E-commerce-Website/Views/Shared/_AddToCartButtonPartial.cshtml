@@ -1,0 +1,23 @@
+﻿@model Product
+
+@if (Model.Carts.Count > 0)
+{
+	@* If Product is in cart *@
+	<a type="submit" class="btn btn-primary m-2" asp-controller="Home"
+	   asp-action="AddProductToCart"
+	   asp-route-id="@Model.Id"><i class="bi-cart"></i> Go to Cart</a>
+}
+else
+{
+	@* If Product is not in cart *@
+	@if (Model.Quantity > 0)
+	{
+		<a type="submit" class="btn btn-success m-2" asp-controller="Home"
+		   asp-action="AddProductToCart"
+		   asp-route-id="@Model.Id"><i class="bi-plus"></i> Add to Cart</a>
+	}
+	else
+	{
+		<button class="btn btn-secondary m-2" disabled>Out of Stock</button>
+	}
+}
