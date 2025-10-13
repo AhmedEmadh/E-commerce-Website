@@ -20,11 +20,12 @@ namespace E_commerce_Website.Controllers
             _userManager = userManager;
         }
         ECommerceWebsiteContext db = new ECommerceWebsiteContext();
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var user = await _userManager.GetUserAsync(User);
             IndexDM indexDM = new IndexDM();
             indexDM.Categories = db.Categories.ToList();
-            indexDM.Products = db.Products.ToList();
+            indexDM.Products = db.Products.Include(p=>p.Carts.Where(c=>(user != null)&&(c.UserId == user.Id))).ToList();
             indexDM.RecentProducts = db.Products.OrderByDescending(p => p.DateAdded).Take(3).ToList();
             indexDM.Reviews = db.Reviews.ToList();
             return View(indexDM);
