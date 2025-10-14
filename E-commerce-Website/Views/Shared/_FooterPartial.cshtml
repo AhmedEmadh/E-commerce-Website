@@ -25,12 +25,14 @@
                     <li><a asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-controller="Home" asp-action="SearchProduct" asp-route-name="">Products</a></li>
                     <li><a asp-controller="Home" asp-action="Categories">Categories</a></li>
+                    
                     @* <li><a href="">About</a></li> *@
                     @* <li><a href="/Home/SearchProduct?name=">Search</a></li> *@
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li><a asp-controller="Home" asp-action="Cart">Cart</a></li>
                     }
+                    <li><a asp-controller="Home" asp-action="Orders">Orders</a></li>
                 </ul>
             </div>
 
