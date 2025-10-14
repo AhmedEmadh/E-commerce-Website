@@ -7,7 +7,7 @@
 	<div class="products-content h-100 text-center">
 		@if (!string.IsNullOrEmpty(Model.Photo))
 		{
-			<a href="@Model.Photo" data-gallery="products-gallery-app" class="glightbox">
+			<a href="@Model.Photo" data-gallery="products-gallery-app-@Model.Id" class="glightbox">
 				@if (Model.Photo.Length > 0 && !(Model.Photo.StartsWith("https://") || Model.Photo.StartsWith("http://")))
 				{
 					<img src="@adminPanelPath@("upload/" + Model.Photo.TrimStart('/'))" class="img-fluid" style="max-height: 400px;">
