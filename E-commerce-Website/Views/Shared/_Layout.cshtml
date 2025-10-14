@@ -1,10 +1,18 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
 	<meta charset="utf-8">
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
-	<title>Index - Techie Bootstrap Template</title>
+	@if (ViewData["Title"] != null && !string.IsNullOrEmpty((string)ViewData["Title"]!))
+	{
+		<title>@ViewData["Title"] - Ecommerce Website</title>
+	}
+	else
+	{
+		<title>Ecommerce Website</title>
+	}
 	<meta name="description" content="">
 	<meta name="keywords" content="">
 
@@ -75,7 +83,7 @@
 	<!-- Main JS File -->
 	<script src="~/assets/js/main.js"></script>
 	<script src="~/js/site.js"></script>
-	
+
 </body>
 
 </html>
