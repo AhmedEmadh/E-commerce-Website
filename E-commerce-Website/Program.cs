@@ -2,6 +2,7 @@ using E_commerce_Website.Data;
 using E_commerce_Website.Models;
 using Microsoft.AspNetCore.Hosting.StaticWebAssets;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -38,6 +39,12 @@ builder.Services.Configure<IdentityOptions>(options =>
 });
 
 StaticWebAssetsLoader.UseStaticWebAssets(builder.Environment, builder.Configuration);
+
+// Configure Email Settings
+builder.Services.Configure<EmailSettings>(
+    builder.Configuration.GetSection("EmailSettings"));
+// Register EmailSender service
+builder.Services.AddTransient<IEmailSender, EmailSender>();
 
 var app = builder.Build();
 
