@@ -67,7 +67,11 @@ namespace E_commerce_Website.Areas.Identity.Pages.Account
                 ModelState.AddModelError(string.Empty, "Verification email sent. Please check your email.");
                 return Page();
             }
-
+            if (user.EmailConfirmed == true)
+            {
+                ModelState.AddModelError(string.Empty, "Verification email sent. Please check your email.");
+                return Page();
+            }
             var userId = await _userManager.GetUserIdAsync(user);
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));

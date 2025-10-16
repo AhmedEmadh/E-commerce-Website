@@ -28,14 +28,14 @@ builder.Services.AddScoped<ECommerceWebsiteContext>();
 // remove password complexity requirements
 builder.Services.Configure<IdentityOptions>(options =>
 {
-    options.Password.RequireDigit = false;
-    options.Password.RequireLowercase = false;
-    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireNonAlphanumeric = true;
     options.Password.RequireUppercase = false;
-    options.Password.RequiredLength = 1;
+    options.Password.RequiredLength = 6;
     options.Password.RequiredUniqueChars = 0;
-    options.SignIn.RequireConfirmedEmail = false;
-    options.SignIn.RequireConfirmedAccount = false;
+    options.SignIn.RequireConfirmedEmail = true;
+    options.User.RequireUniqueEmail = true;
 });
 
 StaticWebAssetsLoader.UseStaticWebAssets(builder.Environment, builder.Configuration);
