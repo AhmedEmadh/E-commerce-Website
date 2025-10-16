@@ -10,6 +10,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using E_commerce_Website.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -31,6 +32,7 @@ namespace E_commerce_Website.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<IdentityUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IConfirmationEmailSender _confirmationEmailSender;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
@@ -38,11 +40,13 @@ namespace E_commerce_Website.Areas.Identity.Pages.Account
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
+            IConfirmationEmailSender confirmationEmailSender,
             RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _userStore = userStore;
             _emailStore = GetEmailStore();
+            _confirmationEmailSender = confirmationEmailSender;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
@@ -105,6 +109,9 @@ namespace E_commerce_Website.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+            [Required]
+            [Display(Name = "Send Confirmation Email")]
+            public bool SendConfirmationEmail { get; set; }
         }
 
 
@@ -117,6 +124,7 @@ namespace E_commerce_Website.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
+            var signInReturnURL = returnUrl + "Identity/Account/Login";
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
@@ -136,8 +144,14 @@ namespace E_commerce_Website.Areas.Identity.Pages.Account
                     // Assign user to 'visitor' role only
                     await _userManager.AddToRoleAsync(user, "visitor");
 
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    return LocalRedirect(returnUrl);
+                    // If the user has requested a confirmation email, send it
+                    if (Input.SendConfirmationEmail)
+                    {
+                        await _confirmationEmailSender.SendConfirmationEmailAsync(Input.Email);
+                    }
+                    //await _signInManager.SignInAsync(user, isPersistent: false);
+                    //return LocalRedirect(returnUrl);
+                    return LocalRedirect(signInReturnURL);
                 }
                 foreach (var error in result.Errors)
                 {

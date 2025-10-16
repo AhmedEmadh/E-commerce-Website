@@ -32,6 +32,12 @@
 					<label asp-for="Input.ConfirmPassword">Confirm Password</label>
 					<span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
 				</div>
+				@* Send confirmation Email Check box default is checked*@
+				<div class="form-check mb-3">
+					<input asp-for="Input.SendConfirmationEmail" class="form-check-input" checked/>
+					<label asp-for="Input.SendConfirmationEmail" class="form-check-label">Send me a confirmation email</label>
+					<span asp-validation-for="Input.SendConfirmationEmail" class="text-danger"></span>
+				</div>
 				<button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary mb-3">Register</button>
 			</form>
 		</div>
