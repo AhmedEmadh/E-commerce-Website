@@ -111,6 +111,23 @@ namespace E_commerce_Website.Areas.Identity.Pages.Account
                 return RedirectToPage("./Login", new { ReturnUrl = returnUrl });
             }
             var info = await _signInManager.GetExternalLoginInfoAsync();
+            var Useremail = info.Principal.FindFirstValue(ClaimTypes.Email);
+            var currentUser = await _userManager.FindByEmailAsync(Useremail);
+            if (currentUser != null)
+            {
+                // User with the same email already exists Login that user in and link the external login
+                await _signInManager.SignInAsync(currentUser, isPersistent: false);
+                await _userManager.AddLoginAsync(currentUser, info);
+                _logger.LogInformation("{Name} logged in with {LoginProvider} provider.", info.Principal.Identity.Name, info.LoginProvider);
+                if(!currentUser.EmailConfirmed && currentUser.PasswordHash != null)
+                {
+                    currentUser.PasswordHash = null;
+                    currentUser.EmailConfirmed = true;
+                    await _userManager.UpdateAsync(currentUser);
+                }
+                // Redirect to Home page after successful login
+                return LocalRedirect(returnUrl);
+            }
             if (info == null)
             {
                 ErrorMessage = "Error loading external login information.";
