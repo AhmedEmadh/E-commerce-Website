@@ -23,6 +23,8 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
+
+
 // Dependency Indjection for DbContext
 builder.Services.AddScoped<ECommerceWebsiteContext>();
 // remove password complexity requirements
@@ -47,6 +49,15 @@ builder.Services.Configure<EmailSettings>(
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.AddTransient<IConfirmationEmailSender, ConfirmationEmailSender>();
 builder.Services.AddHttpContextAccessor();
+
+var configuration = builder.Configuration;
+
+builder.Services.AddAuthentication().AddGoogle(googleOptions =>
+{
+    googleOptions.ClientId = configuration["Authentication:Google:ClientId"]!;
+    googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"]!;
+});
+
 
 var app = builder.Build();
 
