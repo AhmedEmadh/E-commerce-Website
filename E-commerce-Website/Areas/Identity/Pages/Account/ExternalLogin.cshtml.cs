@@ -83,9 +83,9 @@ namespace E_commerce_Website.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
-            [EmailAddress]
-            public string Email { get; set; }
+            //[Required]
+            //[EmailAddress]
+            //public string Email { get; set; }
             [Required]
             [MinLength(1)]
             public string UserName { get; set; }
@@ -137,7 +137,6 @@ namespace E_commerce_Website.Areas.Identity.Pages.Account
                 {
                     Input = new InputModel
                     {
-                        Email = info.Principal.FindFirstValue(ClaimTypes.Email),
                         UserName = info.Principal.FindFirstValue(ClaimTypes.Email)
                     };
                 }
@@ -149,6 +148,7 @@ namespace E_commerce_Website.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             // Get the information about the user from the external login provider
             var info = await _signInManager.GetExternalLoginInfoAsync();
+            var Useremail = info.Principal.FindFirstValue(ClaimTypes.Email);
             if (info == null)
             {
                 ErrorMessage = "Error loading external login information during confirmation.";
@@ -158,7 +158,6 @@ namespace E_commerce_Website.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
-                var Useremail = info.Principal.FindFirstValue(ClaimTypes.Email);
                 await _userStore.SetUserNameAsync(user, Input.UserName, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Useremail , CancellationToken.None);
                 user.EmailConfirmed = true;
@@ -179,13 +178,13 @@ namespace E_commerce_Website.Areas.Identity.Pages.Account
                             values: new { area = "Identity", userId = userId, code = code },
                             protocol: Request.Scheme);
 
-                        await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                        await _emailSender.SendEmailAsync(Useremail, "Confirm your email",
                             $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                         // If account confirmation is required, we need to show the link if we don't have a real email sender
                         if (_userManager.Options.SignIn.RequireConfirmedAccount)
                         {
-                            return RedirectToPage("./RegisterConfirmation", new { Email = Input.Email });
+                            return RedirectToPage("./RegisterConfirmation", new { Email = Useremail });
                         }
 
                         await _signInManager.SignInAsync(user, isPersistent: false, info.LoginProvider);
