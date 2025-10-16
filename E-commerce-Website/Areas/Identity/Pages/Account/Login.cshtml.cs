@@ -112,29 +112,33 @@ namespace E_commerce_Website.Areas.Identity.Pages.Account
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+                SignInResult result;
+                // Search For User
                 var user = await _signInManager.UserManager.FindByEmailAsync(Input.Email);
-                SignInResult result; 
+                if (user == null)
+                    user = await _signInManager.UserManager.FindByNameAsync(Input.Email);
                 if (user != null)
                 {
+                    // If Found Try To Sign In
                     result = await _signInManager.PasswordSignInAsync(user.UserName, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 }
                 else
                 {
-                    user = await _signInManager.UserManager.FindByNameAsync(Input.Email);
-                    if (user != null)
-                    {
-                        result = await _signInManager.PasswordSignInAsync(user.UserName, Input.Password, Input.RememberMe, lockoutOnFailure: false);
-                    }
-                    else
-                    {
-                        result = SignInResult.Failed;
-                    }
+                    //If not Found Set Result to Failed
+                    result = SignInResult.Failed;
                 }
 
                 if (result.Succeeded)
                 {
+                    //If Login Succedded
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
+                }
+                if (user != null && !user.EmailConfirmed)
+                {
+                    // If User's Email is not confirmed
+                    ModelState.AddModelError(string.Empty, "User Email is Not Confirmed");
+                    return Page();
                 }
                 if (result.RequiresTwoFactor)
                 {

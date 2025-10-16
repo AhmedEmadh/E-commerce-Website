@@ -43,8 +43,10 @@ StaticWebAssetsLoader.UseStaticWebAssets(builder.Environment, builder.Configurat
 // Configure Email Settings
 builder.Services.Configure<EmailSettings>(
     builder.Configuration.GetSection("EmailSettings"));
-// Register EmailSender service
+
 builder.Services.AddTransient<IEmailSender, EmailSender>();
+builder.Services.AddTransient<IConfirmationEmailSender, ConfirmationEmailSender>();
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
